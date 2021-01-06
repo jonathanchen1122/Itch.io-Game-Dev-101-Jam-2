@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerScript : MonoBehaviour
 {
     public bool isAlive;
+    public Vector3 initSize;
 
     private void Start()
     {
@@ -25,6 +26,8 @@ public class PlayerScript : MonoBehaviour
         {
             // size is zero
             isAlive = false;
+
+            transform.localScale = new Vector3(0f, 0f, 1f);
         }
     }
 
@@ -35,10 +38,21 @@ public class PlayerScript : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
-        if (collision.CompareTag("Maze"))   // && POSITION AT START
+        if (collision.CompareTag("Redo"))   // && POSITION AT START
         {
             isAlive = true;
+            transform.localScale = initSize;
+
             //size is normal
+        }
+
+
+        if (collision.CompareTag("Obstacle")) //Enemy
+        {
+            // size is zero
+            isAlive = false;
+
+            transform.localScale = new Vector3(0f, 0f, 1f);
         }
     }
 }
